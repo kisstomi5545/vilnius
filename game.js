@@ -1082,7 +1082,7 @@
     const def = MINI[cfg.type];
     let finished = false;
     openModal(
-      `<div class="card-head"><span class="card-icon">${def.icon}</span><div><small>MINIJÁTÉK · +3 🐟</small><h2>${esc(cfg.title || def.title)}</h2></div></div>` +
+      `<div class="card-head"><span class="card-icon">${cfg.emoji || def.icon}</span><div><small>MINIJÁTÉK · +3 🐟</small><h2>${esc(cfg.title || def.title)}</h2></div></div>` +
       `<p class="mini-help">${esc(cfg.help || def.help)}</p><div class="mini-area"></div><p class="mini-status"></p>`,
       [],
       () => {
@@ -1135,8 +1135,8 @@
     const goal = cfg.goal || 6, total = cfg.time || 12;
     let caught = 0, t = 0, spawnT = 0, raf = 0, last = performance.now(), over = false;
     const fish = [];
-    area.classList.add('mini-water');
-    const upd = () => { status.textContent = `🐟 ${caught}/${goal} · ⏱ ${Math.max(0, Math.ceil(total - t))} mp`; };
+    area.classList.add(cfg.bg === 'shop' ? 'mini-shop' : 'mini-water');
+    const upd = () => { status.textContent = `${cfg.emoji || '🐟'} ${caught}/${goal} · ⏱ ${Math.max(0, Math.ceil(total - t))} mp`; };
     function spawn() {
       const W = area.clientWidth, H = area.clientHeight;
       const el = document.createElement('button');

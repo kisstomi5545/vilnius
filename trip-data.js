@@ -260,6 +260,14 @@ const TRIP = {
           loot: { icon: '🎬', name: 'Forgatási kellék' },
         },
         {
+          time: 'délelőtt', icon: '🛍️', title: 'Bolti kör', place: 'Gedimino prospektas, Vilnius',
+          maps: 'Gedimino prospektas Vilnius',
+          desc: 'Kötelező boltjárás, mert Ádám úgyis minden szart összevásárol. 🛍️ A keret: ami belefér a bőröndbe (és még egy kicsi).',
+          fact: 'A Gedimino prospektas Vilnius főutcája a Katedrális tértől nyugat felé. A szovjet időkben Lenin nevét viselte.',
+          loot: { icon: '🛍️', name: 'Teljesen felesleges szuvenír' },
+          game: { type: 'catch', title: 'Akciós roham', help: 'Repkednek a leárazott cuccok! Kapj el hatot – úgyis mindet megvennéd.', emoji: '🛍️', bg: 'shop' },
+        },
+        {
           time: 'délelőtt', icon: '🐈', title: 'Užupis', place: 'Užupis, Vilnius',
           maps: 'Užupis',
           desc: 'Séta a művésznegyedben, ami „független köztársaságnak" tartja magát.',

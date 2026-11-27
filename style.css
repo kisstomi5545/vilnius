@@ -343,6 +343,7 @@ img, canvas { image-rendering: crisp-edges; image-rendering: pixelated; }
 .mini-help { margin-top: 14px; line-height: 1.4; }
 .mini-area { position: relative; height: 260px; overflow: hidden; background: #fff; touch-action: none; }
 .mini-area.mini-water { background: linear-gradient(#cdeeff, #6fb3ee 65%, #3f86cf); }
+.mini-area.mini-shop { background: repeating-linear-gradient(90deg, #ff9cc0 0 28px, #fff1dc 28px 56px); }
 .mini-status { min-height: 1.3em; font-weight: 700; text-align: center; white-space: pre-wrap; }
 .mini-fish {
   position: absolute; left: 0; top: 0; width: 48px; height: 48px; margin: -24px 0 0 -24px;
