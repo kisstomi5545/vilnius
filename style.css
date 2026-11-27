@@ -81,8 +81,46 @@ img, canvas { image-rendering: crisp-edges; image-rendering: pixelated; }
 .screen.active { display: block; }
 .bg { position: absolute; left: 0; top: 0; z-index: 0; }
 
+/* ---------- Teaser ---------- */
+.teaser-wrap {
+  position: relative; z-index: 2; height: 100%; overflow: auto;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 14px; padding: 24px 18px; text-align: center;
+}
+.teaser-kicker { margin: 0; font-size: 15px; letter-spacing: 2px; color: var(--yellow); animation: blink 1s steps(1) infinite; }
+.teaser-title {
+  margin: 0; font-size: clamp(30px, 8vw, 64px); line-height: 1; color: var(--cream);
+  text-shadow: 3px 3px 0 var(--green), 6px 6px 0 var(--red);
+}
+.teaser-sub { margin: 0 0 6px; font-size: 16px; opacity: .8; letter-spacing: 1px; }
+.dialog {
+  position: relative; width: min(620px, 100%); min-height: 150px;
+  display: flex; gap: 14px; align-items: flex-start; padding: 16px;
+  background: var(--cream); color: var(--ink); text-align: left; cursor: pointer;
+}
+.dialog-face { flex: none; width: 76px; padding: 6px; background: #fff; }
+.dialog-body { flex: 1; min-width: 0; }
+.dialog-name { display: inline-block; padding: 2px 8px; background: var(--ink); color: var(--yellow); font-size: 12px; letter-spacing: 1px; font-weight: 700; }
+.dialog-text { margin: 8px 0 0; min-height: 3.6em; font-size: 18px; line-height: 1.45; }
+.dialog-next { position: absolute; right: 14px; bottom: 8px; font-size: 14px; animation: blink .7s steps(1) infinite; }
+.teaser-dots { display: flex; gap: 6px; }
+.teaser-dots i { width: 10px; height: 10px; background: rgba(255, 241, 220, .3); }
+.teaser-dots i.on { background: var(--yellow); }
+.teaser-ps {
+  max-width: 620px; margin: 4px 0 0; padding: 8px 12px;
+  background: rgba(27, 27, 47, .85); font-size: 15px; font-style: italic; color: var(--cream);
+  animation: pop .3s steps(3);
+}
+.teaser-btns { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; justify-content: center; margin-top: 6px; }
+.link-btn { background: none; border: 0; padding: 4px 8px; font: inherit; font-size: 14px; color: var(--cream); opacity: .75; text-decoration: underline; cursor: pointer; }
+@media (max-width: 520px) {
+  .dialog { padding: 12px; gap: 10px; }
+  .dialog-face { width: 52px; padding: 4px; }
+  .dialog-text { font-size: 16px; }
+}
+
 /* ---------- Kezdőképernyő ---------- */
-#screen-start .shade {
+.shade {
   position: absolute; inset: 0; z-index: 1;
   background: radial-gradient(ellipse at center, rgba(27, 27, 47, .45), rgba(27, 27, 47, .9));
 }

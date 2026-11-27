@@ -12,6 +12,31 @@
 <body data-theme="map">
 <div id="app">
 
+  <!-- ============ TEASER ============ -->
+  <section id="screen-teaser" class="screen">
+    <canvas id="teaser-bg" class="bg"></canvas>
+    <div class="shade"></div>
+    <div class="teaser-wrap">
+      <p id="teaser-kicker" class="teaser-kicker"></p>
+      <h1 id="teaser-title" class="teaser-title"></h1>
+      <p id="teaser-sub" class="teaser-sub"></p>
+      <div id="teaser-dialog" class="dialog px">
+        <img class="dialog-face" alt="">
+        <div class="dialog-body">
+          <small id="teaser-speaker" class="dialog-name"></small>
+          <p id="teaser-text" class="dialog-text"></p>
+          <span class="dialog-next">▼</span>
+        </div>
+      </div>
+      <div id="teaser-dots" class="teaser-dots"></div>
+      <p id="teaser-ps" class="teaser-ps hidden"></p>
+      <div class="teaser-btns">
+        <button id="btn-teaser-skip" class="btn ghost px">Átugrom</button>
+        <button id="btn-teaser-next" class="btn big px">TOVÁBB ▶</button>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ KEZDŐKÉPERNYŐ ============ -->
   <section id="screen-start" class="screen active">
     <canvas id="start-bg" class="bg"></canvas>
@@ -27,6 +52,7 @@
         <p id="loading-msg"></p>
         <p id="loading-fact"></p>
       </div>
+      <button id="btn-teaser-again" class="link-btn">📨 Üzenet újra</button>
       <p id="start-foot"></p>
     </div>
   </section>

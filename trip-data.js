@@ -25,6 +25,24 @@ const TRIP = {
   footer: 'Te + Ádám · Litvánia & Lettország · 2027. április',
   mapSubtitle: 'Litvánia + Lettország',
 
+  // Teaser: ez az oldal legelső képernyője (első látogatáskor)
+  teaser: {
+    kicker: '📨 ÚJ ÜZENET ÉRKEZETT',
+    title: 'ÁDÁM, EZ NEKED SZÓL',
+    sub: '2027. április · Litvánia · Lettország',
+    speaker: 'KATINAS, A MACSKA',
+    lines: [
+      'Szia Ádám! 👋 Katinas vagyok, litván kandúr. Én leszek a túravezetőd.',
+      'Azt már tudod, hogy áprilisban megyünk a Baltikumba. Azt viszont még nem, hogy mit csinálunk ott.',
+      'Ez az oldal elárulja. De csak ha végigjátszod. 🐾',
+      '4 nap, 2 ország, 1 bérautó. A macskát (és később az autót) te irányítod.',
+      'Lesznek tengerparti erődök, egy föld alatti rakétasiló, Európa legszélesebb vízesése és pár nagyon jó sör. 🍺',
+      'Minden állomáson kiderül egy program és egy érdekesség. Útközben halakat gyűjthetsz, de vigyázz a helyi állatokkal.',
+      'A végén vár rád egy kérdés. Csak egy jó válasz van rá. 😼',
+    ],
+    ps: 'U.i.: Bocs, hogy miattam drágább a RAM. 🤖 – az AI, aki ezt az oldalt összerakta',
+  },
+
   // Indulás időpontja a visszaszámlálóhoz, pl. '2027-04-15T06:00:00'
   startDate: null, // TODO: pontos dátum + repülési idő
 

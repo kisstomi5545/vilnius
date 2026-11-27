@@ -47,7 +47,9 @@
   function tone(freq, dur = 0.08, type = 'square', vol = 0.05, slideTo) {
     if (state.muted) return;
     try {
+      if (!ac && navigator.userActivation && !navigator.userActivation.hasBeenActive) return; // még nem kattintott
       ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+      if (ac.state === 'suspended') ac.resume();
       const t = ac.currentTime;
       const o = ac.createOscillator();
       const g = ac.createGain();
@@ -111,7 +113,7 @@
   // ===== UI-alapok ==================================================
   function show(id) {
     $$('.screen').forEach(s => s.classList.toggle('active', s.id === id));
-    $('#hud').classList.toggle('hidden', id === 'screen-start' || id === 'screen-select');
+    $('#hud').classList.toggle('hidden', id === 'screen-start' || id === 'screen-select' || id === 'screen-teaser');
     if (id !== 'screen-scene') { $('#btn-map').classList.toggle('hidden', id !== 'screen-final'); stopRoam(); }
     updateHud();
   }
@@ -1544,6 +1546,7 @@
     if ((k === 'Enter' || k === ' ') && document.activeElement && document.activeElement.tagName === 'BUTTON') return;
     const active = $('.screen.active').id;
     if (active === 'screen-start' && (k === 'Enter' || k === ' ')) { e.preventDefault(); $('#btn-start').click(); return; }
+    if (active === 'screen-teaser' && (k === 'Enter' || k === ' ' || k === 'ArrowRight')) { e.preventDefault(); teaserNext(); return; }
     if (active !== 'screen-scene') return;
     if (scene && scene.kind === 'level') {
       if (MOVE[k]) { e.preventDefault(); R.keys.add(MOVE[k]); R.target = null; }
@@ -1565,6 +1568,7 @@
       const active = $('.screen.active').id;
       if (active === 'screen-scene' && scene) { if (busy) needRelayout = true; else layoutScene(); }
       else if (active === 'screen-start') { const s = $('#screen-start'); paintBg($('#start-bg'), 'map', s.clientWidth, s.clientHeight); }
+      else if (active === 'screen-teaser') { const s = $('#screen-teaser'); paintBg($('#teaser-bg'), 'coast', s.clientWidth, s.clientHeight); }
       else if (active === 'screen-final') paintFinalBg();
     }, 150);
   }
@@ -1577,7 +1581,69 @@
     }
   }, 11000);
 
+  // ===== Teaser (legelső képernyő) ====================================
+  const TZ = TRIP.teaser;
+  let tIdx = 0, tTimer = null, tFull = '';
+
+  function openTeaser() {
+    show('screen-teaser');
+    const s = $('#screen-teaser');
+    paintBg($('#teaser-bg'), 'coast', s.clientWidth, s.clientHeight);
+    $('#teaser-kicker').textContent = TZ.kicker;
+    $('#teaser-title').textContent = TZ.title;
+    $('#teaser-sub').textContent = TZ.sub;
+    $('#teaser-speaker').textContent = TZ.speaker;
+    $('#teaser-ps').textContent = TZ.ps || '';
+    $('#teaser-dialog .dialog-face').src = SPRITES.url('catA', 4);
+    $('#teaser-dots').innerHTML = TZ.lines.map(() => '<i></i>').join('');
+    tIdx = 0;
+    renderTeaser();
+  }
+
+  function renderTeaser() {
+    const last = tIdx === TZ.lines.length - 1;
+    $$('#teaser-dots i').forEach((d, i) => d.classList.toggle('on', i <= tIdx));
+    $('#teaser-ps').classList.toggle('hidden', !(last && TZ.ps));
+    $('#btn-teaser-next').textContent = last ? 'IRÁNY A JÁTÉK ▶' : 'TOVÁBB ▶';
+    $('#btn-teaser-skip').classList.toggle('hidden', last);
+    const el = $('#teaser-text');
+    tFull = TZ.lines[tIdx];
+    let i = 0;
+    el.textContent = '';
+    clearInterval(tTimer);
+    tTimer = setInterval(() => {
+      i += 1;
+      el.textContent = tFull.slice(0, i);
+      if (i % 3 === 0) tone(700 + Math.random() * 200, 0.02, 'square', 0.02);
+      if (i >= tFull.length) clearInterval(tTimer);
+    }, 28);
+  }
+
+  function teaserNext() {
+    const el = $('#teaser-text');
+    if (el.textContent.length < tFull.length) { clearInterval(tTimer); el.textContent = tFull; return; }
+    if (tIdx >= TZ.lines.length - 1) { finishTeaser(); return; }
+    tIdx++;
+    sfx.blip();
+    renderTeaser();
+  }
+
+  function finishTeaser() {
+    clearInterval(tTimer);
+    state.teaserSeen = true;
+    save();
+    show('screen-start');
+    const s = $('#screen-start');
+    paintBg($('#start-bg'), 'map', s.clientWidth, s.clientHeight);
+  }
+
+  $('#btn-teaser-next').addEventListener('click', teaserNext);
+  $('#teaser-dialog').addEventListener('click', teaserNext);
+  $('#btn-teaser-skip').addEventListener('click', finishTeaser);
+  $('#btn-teaser-again').addEventListener('click', openTeaser);
+
   // ===== Indítás ====================================================
   initStart();
   updateHud();
+  if (TZ && !state.teaserSeen) openTeaser();
 })();
