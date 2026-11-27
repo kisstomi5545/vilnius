@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Vilnius Quest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="map">
+<div id="app">
+
+  <!-- ============ KEZDŐKÉPERNYŐ ============ -->
+  <section id="screen-start" class="screen active">
+    <canvas id="start-bg" class="bg"></canvas>
+    <div class="shade"></div>
+    <img id="start-car" alt="">
+    <div class="start-wrap">
+      <img id="start-cat" alt="Pixel macska">
+      <h1 id="start-title">VILNIUS QUEST</h1>
+      <p id="start-sub"></p>
+      <button id="btn-start" class="btn big px">START ▶</button>
+      <div id="loading" class="hidden">
+        <div class="bar px"><i></i></div>
+        <p id="loading-msg"></p>
+        <p id="loading-fact"></p>
+      </div>
+      <p id="start-foot"></p>
+    </div>
+  </section>
+
+  <!-- ============ KARAKTERVÁLASZTÓ ============ -->
+  <section id="screen-select" class="screen">
+    <div class="select-wrap">
+      <h2 class="select-title">VÁLASSZ KARAKTERT</h2>
+      <div class="chars">
+        <button id="char-cat" class="char px">
+          <img alt="">
+          <div class="info">
+            <b>KATINAS</b><span class="tag">MACSKA</span>
+            <ul class="stats">
+              <li>Kíváncsiság: ██████████</li>
+              <li>Alvás: 12–16 óra/nap</li>
+              <li>Litvánul: katinas = kandúr</li>
+            </ul>
+          </div>
+        </button>
+        <button id="char-mx5" class="char locked px">
+          <img alt="">
+          <div class="info">
+            <b>MX-5</b><span class="tag">🔒 ZÁRVA</span>
+            <ul class="stats">
+              <li>Ülések: 2</li>
+              <li>Csomagtartó: macskaméret</li>
+              <li>Az autóátvételnél oldódik fel</li>
+            </ul>
+          </div>
+        </button>
+        <button id="char-adam" class="char unknown px">
+          <img alt="">
+          <div class="info">
+            <b>ÁDÁM, REGGEL 6-KOR</b><span class="tag">NEM ELÉRHETŐ</span>
+            <ul class="stats">
+              <li>Energia: ▁</li>
+              <li>Kávé nélkül: ???</li>
+              <li>Státusz: alszik</li>
+            </ul>
+          </div>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TÉRKÉP / PÁLYA ============ -->
+  <section id="screen-scene" class="screen">
+    <canvas id="scene-bg" class="bg"></canvas>
+    <svg id="scene-path" aria-hidden="true"></svg>
+    <div id="scene-nodes"></div>
+    <div id="scene-things"></div>
+    <div id="pointer">➤</div>
+    <div id="joy"><i></i></div>
+    <div id="player">
+      <div class="sprite"><div class="bubble"></div><img alt="Játékos"></div>
+    </div>
+    <div id="scene-title" class="px"></div>
+    <div id="prompt" class="px hidden"></div>
+  </section>
+
+  <!-- ============ FINÁLÉ ============ -->
+  <section id="screen-final" class="screen">
+    <canvas id="final-bg" class="bg"></canvas>
+    <div class="final-wrap">
+      <div class="final-box px">
+        <small class="kicker">KÜLDETÉS-ÖSSZEFOGLALÓ</small>
+        <h1>Vilnius Quest</h1>
+        <div id="final-summary"></div>
+        <div id="final-ask">
+          <p class="final-q">Elfogadod a küldetést?</p>
+          <div class="final-btns">
+            <button id="btn-yes" class="btn big px">IGEN ❤️</button>
+            <button id="btn-no" class="btn big ghost px">NEM</button>
+          </div>
+        </div>
+        <div id="final-done" class="hidden">
+          <p class="final-q">Ačiū! 💛💚❤️</p>
+          <p class="final-note">(litvánul: köszönöm) – Küldetés elfogadva. Találkozunk a reptéren. Nyaa~</p>
+          <div class="final-btns">
+            <button id="btn-again" class="btn px">🎉 MÉG EGYSZER</button>
+            <button id="btn-final-map" class="btn ghost px">🗺️ TÉRKÉP</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ HUD + OVERLAYEK ============ -->
+  <header id="hud" class="hidden">
+    <div class="hud-group">
+      <button id="btn-map" class="chip px" aria-label="Vissza a térképre">🗺️</button>
+      <button id="hud-countdown" class="chip px" aria-label="Visszaszámláló"></button>
+    </div>
+    <div class="hud-group">
+      <button id="btn-bag" class="chip px" aria-label="Hátizsák">🎒 <span id="hud-items">0</span></button>
+      <button id="btn-fact" class="chip px" aria-label="Véletlen érdekesség">🧠</button>
+      <button id="btn-mute" class="chip px" aria-label="Hang be/ki">🔊</button>
+    </div>
+  </header>
+
+  <div id="intro"></div>
+
+  <div id="modal" class="modal hidden" role="dialog" aria-modal="true">
+    <div class="modal-box px">
+      <div id="modal-content"></div>
+      <div id="modal-actions"></div>
+    </div>
+  </div>
+
+  <div id="toasts"></div>
+  <div id="rain"></div>
+</div>
+
+<script src="trip-data.js"></script>
+<script src="sprites.js"></script>
+<script src="game.js"></script>
+</body>
+</html>
