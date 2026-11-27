@@ -451,14 +451,15 @@
 
   function computePoints(n, w, h) {
     portrait = h > w;
-    const top = 150, bottom = portrait ? 130 : 120;
+    sceneEl.classList.toggle('portrait', portrait);
+    const top = portrait ? 166 : 150, bottom = portrait ? 120 : 120;
     const out = [];
     for (let i = 0; i < n; i++) {
       const t = n === 1 ? 0.5 : i / (n - 1);
       let x, y;
       if (portrait) {
         y = top + t * (h - top - bottom);
-        x = w * (i % 2 ? 0.74 : 0.26);
+        x = w * (i % 2 ? 0.8 : 0.2);
       } else {
         const side = Math.max(80, w * 0.08);
         x = side + t * (w - 2 * side);
@@ -627,6 +628,7 @@
     busy = false;
     show('screen-scene');
     document.body.dataset.theme = sc.theme;
+    sceneEl.dataset.kind = sc.kind;
     $('#scene-title').innerHTML = `<small>${esc(sc.title)}</small><b>${esc(sc.subtitle)}</b>`;
     $('#btn-map').classList.toggle('hidden', sc.kind === 'map');
     setVehicle(vehAt(curIdx));

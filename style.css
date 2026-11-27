@@ -261,6 +261,15 @@ img, canvas { image-rendering: crisp-edges; image-rendering: pixelated; }
 .lab-right .node-label { left: calc(100% + 14px); top: 50%; transform: translateY(-50%); }
 .lab-left .node-label { right: calc(100% + 14px); top: 50%; transform: translateY(-50%); text-align: right; }
 
+/* Álló (telefonos) nézet: kisebb állomások, vékonyabb út, egysoros címkék */
+#screen-scene.portrait .node { width: 44px; height: 44px; font-size: 22px; }
+#screen-scene.portrait .node.start { width: 36px; height: 36px; font-size: 18px; }
+#screen-scene.portrait .node-label { font-size: 13px; max-width: calc(60vw - 64px); padding: 3px 6px; }
+#screen-scene.portrait[data-kind="level"] .node-label small { display: none; }
+#screen-scene.portrait .p-road { stroke-width: 16; }
+#screen-scene.portrait .p-road-edge { stroke-width: 22; }
+#screen-scene.portrait .p-out { stroke-width: 10; }
+
 #player { position: absolute; left: 0; top: 0; z-index: 3; pointer-events: none; will-change: transform; }
 #player .sprite {
   position: absolute; left: 0; bottom: 22px;
