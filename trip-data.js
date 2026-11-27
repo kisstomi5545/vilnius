@@ -141,6 +141,12 @@ const TRIP = {
           loot: { icon: '🥾', name: 'Sáros bakancs' },
         },
         {
+          time: '~14:00', icon: '📞', title: 'Fel kell hívni Bogit!', place: 'Valahol Ķemeri és Kuldīga között',
+          desc: 'Kötelező program: felhívjuk Bogit, mert valószínűleg most kelt fel a déli szundijából. 😴',
+          fact: 'Az EU-ban 2017 óta nincs roamingdíj, úgyhogy a hívás Lettországból ugyanannyiba kerül, mint otthonról. A macskák egyébként napi 12–16 órát alszanak, tehát Bogi szundija teljesen természetes.',
+          loot: { icon: '😴', name: 'Szundi-riadó' },
+        },
+        {
           time: 'délután', icon: '💧', title: 'Kuldīga és a Venta-vízesés', place: 'Ventas rumba, Kuldīga',
           maps: 'Ventas rumba Kuldīga',
           game: { type: 'catch', title: 'Repülő halak', help: 'Tavasszal a halak átugranak a vízesésen. Kapj el hatot!', emoji: '🐠' },
